@@ -1,6 +1,28 @@
-'gunicorn',
-'gevent',
-'python-crontab==1.9.2',
-'python-consul',
-'PyYAML',
-'requests'
+# BioMAJ cron service
+
+biomaj-cron manages the cron task to update BioMAJ banks.
+
+It can be used as a library or as a micro-service.
+
+# Install
+
+    pip install biomaj-cron
+
+# Micro service
+
+## Run
+
+    export BIOMAJ_CONFIG=path_to_config.yml
+    gunicorn -b 0.0.0.0:5000 biomaj_cron.biomaj_cron_web:app
+
+## API
+
+    Endpoint /api/cron
+
+
+# Generate documentation
+
+    pip install sphinx
+    pip install sphinxcontrib-httpdomain
+    cd doc
+    make html

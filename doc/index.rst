@@ -14,6 +14,7 @@ biomaj-cron is the service to manage cron tasks for BioMAJ. It provides a CronCl
    :maxdepth: 2
 
    cron
+   webapi
 
 
 
