@@ -48,6 +48,7 @@ config = {
                         'gevent',
                         'python-crontab',
                         'python-consul',
+                        'pymongo'
                         'PyYAML',
                         'requests',
                         'biomaj-core'

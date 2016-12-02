@@ -13,7 +13,7 @@ consul:
 web:
     debug: true
     port: 5000
-    local_endpoint: 'http://131.254.17.40:5000'
+    local_endpoint: 'http://biomaj-internal-proxy'
 
 tls:
     key: null

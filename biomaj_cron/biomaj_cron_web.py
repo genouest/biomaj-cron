@@ -1,5 +1,6 @@
 import ssl
 import os
+import sys
 import yaml
 import logging
 
@@ -22,9 +23,12 @@ if 'BIOMAJ_CONFIG' in os.environ:
         config_file = os.environ['BIOMAJ_CONFIG']
 
 config = None
+
+
 with open(config_file, 'r') as ymlfile:
     config = yaml.load(ymlfile)
     Utils.service_config_override(config)
+
 
 client = MongoClient(config['mongo']['url'])
 db = client[config['mongo']['db']]
@@ -58,13 +62,25 @@ load_cron_tasks()
 
 @app.route('/api/cron', methods=['GET'])
 def ping():
+    '''
+    .. http:get:: /api/cron
+
+       Ping endpoint to test service availability
+       :>json dict: pong message
+       :statuscode 200: no error
+    '''
     return jsonify({'msg': 'pong'})
 
 
 @app.route('/api/cron/jobs', methods=['GET'])
 def list_cron():
     '''
-    List cron
+    .. http:get:: /api/cron/jobs
+
+       Get list of cron tasks
+
+       :>json dict: list of cron tasks and query status
+       :statuscode 200: no error
     '''
     jobs = []
     try:
@@ -82,7 +98,12 @@ def list_cron():
 @app.route('/api/cron/jobs/<cron_name>', methods=['DELETE'])
 def delete_cron(cron_name):
     '''
-    delete a cron task
+    .. http:delete:: /api/cron/jobs/(str:id)
+
+       Delete a cron task
+
+       :>json dict: status message
+       :statuscode 200: no error
     '''
     try:
         remove_cron_task(cron_name)
@@ -98,7 +119,16 @@ def delete_cron(cron_name):
 @app.route('/api/cron/jobs/<cron_name>', methods=['POST'])
 def add_cron(cron_name):
     '''
-    add a task to cron
+    .. http:post:: /api/cron/jobs/(str:id)
+
+       Update or add a cron task
+
+       :<json dict: cron info containing slices, banks and comment
+                    comment is the name to be used for the new task
+                    banks is the list of banks to be udpated, comma separated
+                    slices is the cron time info in cron format (example: * * * * *)
+       :>json dict: status message
+       :statuscode 200: no error
     '''
     param = request.get_json()
     cron_time = param['slices']
@@ -110,7 +140,7 @@ def add_cron(cron_name):
 
     r = requests.get(config['web']['endpoint'] + '/api/user/info/user/' + cron_user)
     if not r.status_code == 200:
-        return abort(401)
+        return jsonify({'msg': 'cron task could not be updated', 'cron': cron_name, 'status': False})
     user_info = r.json()
     api_key = user_info['user']['apikey']
 
