@@ -1,19 +1,19 @@
 mongo:
-    url: 'mongodb://localhost:27017'
+    url: 'mongodb://biomaj-mongo:27017'
     db: 'biomaj_cron'
 
 cron:
     cli: 'biomaj-cli.py'
 
 consul:
-    host: null
+    host: 'biomaj-consul'
     # Unique agent identifier name among biomaj downloaders
-    id: 'biomaj_user_agent'
+    id: null
 
 web:
     debug: true
     port: 5000
-    local_endpoint: 'http://localhost:5000'
+    local_endpoint: 'http://biomaj-internal-proxy'
 
 tls:
     key: null

@@ -8,7 +8,9 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from flask import abort
+
 import requests
+import consul
 
 from pymongo import MongoClient
 
