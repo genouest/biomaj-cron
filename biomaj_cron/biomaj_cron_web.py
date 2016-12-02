@@ -128,6 +128,7 @@ def add_cron(cron_name):
                     comment is the name to be used for the new task
                     banks is the list of banks to be udpated, comma separated
                     slices is the cron time info in cron format (example: * * * * *)
+                    user (optional) is of the user owning the bank, will use his apikey for the update
        :>json dict: status message
        :statuscode 200: no error
     '''
