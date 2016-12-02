@@ -12,6 +12,9 @@ It can be used as a library or as a micro-service.
 
 ## Run
 
+    # to reload cron tasks from database (in case of micro service)
+    biomaj_load_cron.py
+
     export BIOMAJ_CONFIG=path_to_config.yml
     gunicorn -b 0.0.0.0:5000 biomaj_cron.biomaj_cron_web:app
 
