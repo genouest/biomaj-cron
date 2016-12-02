@@ -1,13 +1,11 @@
 import ssl
 import os
-import sys
 import yaml
 import logging
 
 from flask import Flask
 from flask import jsonify
 from flask import request
-from flask import abort
 
 import requests
 import consul
@@ -50,6 +48,7 @@ def consul_declare(config):
 
 consul_declare(config)
 
+
 def load_cron_tasks():
     logging.info("Load saved cron tasks")
     cron_jobs = mongo_cron.find({})
@@ -86,14 +85,14 @@ def list_cron():
     '''
     jobs = []
     try:
-        user_cron  = list_cron_tasks()
+        user_cron = list_cron_tasks()
     except Exception as e:
-        logging.error('cron:error:'+str(e))
+        logging.error('cron:error:' + str(e))
         return jsonify({'cron': jobs, 'status': False})
     if not user_cron:
         return jsonify({'cron': jobs, 'status': True})
     for job in user_cron:
-      jobs.append(str(user_cron))
+        jobs.append(str(user_cron))
     return jsonify({'cron': jobs, 'status': True})
 
 
@@ -110,7 +109,7 @@ def delete_cron(cron_name):
     try:
         remove_cron_task(cron_name)
     except Exception as e:
-        logging.error('cron:error:'+str(e))
+        logging.error('cron:error:' + str(e))
         return jsonify({'msg': 'cron task could not be deleted', 'cron': cron_name, 'status': False})
 
     mongo_cron.remove({'name': cron_name})
@@ -149,7 +148,7 @@ def add_cron(cron_name):
     try:
         remove_cron_task(cron_name)
     except Exception as e:
-        logging.error('cron:error:'+str(e))
+        logging.error('cron:error:' + str(e))
         return jsonify({'msg': 'cron task could not be updated', 'cron': cron_name, 'status': False})
 
     mongo_cron.remove({'name': cron_name})
@@ -157,14 +156,14 @@ def add_cron(cron_name):
     biomaj_cli = 'biomaj-cli.py'
     if 'cron' in config and config['cron']['cli']:
         biomaj_cli = config['cron']['cli']
-    cmd = biomaj_cli + " --update --bank " + cron_banks + " >> /var/log/cron.log 2>&1"
+    cron_cmd = biomaj_cli + " --proxy " + config['web']['local_endpoint'] + " --api-key " + api_key + " --update --bank " + cron_banks + " >> /var/log/cron.log 2>&1"
     try:
         add_cron_task(cron_time, cron_cmd, cron_newname)
     except Exception as e:
-        logging.error('cron:error:'+str(e))
+        logging.error('cron:error:' + str(e))
         return jsonify({'msg': 'cron task deleted but could not update it', 'cron': cron_name, 'status': False})
 
-    mongo_cron.insert({'name': cron_newname, 'cmd': cmd, 'time': cron_time})
+    mongo_cron.insert({'name': cron_newname, 'cmd': cron_cmd, 'time': cron_time})
 
     return jsonify({'msg': 'cron task added', 'cron': cron_newname, 'status': True})
 

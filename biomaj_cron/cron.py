@@ -1,7 +1,9 @@
 from crontab import CronTab
+import requests
 
 
 def add_cron_task(cron_time, cron_cmd, cron_name):
+    cron = CronTab(user=True)
     job = cron.new(command=cron_cmd, comment=cron_name)
     job.setall(cron_time)
     cron.write()
@@ -13,7 +15,7 @@ def list_cron_tasks():
 
 
 def remove_cron_task(cron_name):
-    cron  = CronTab(user=True)
+    cron = CronTab(user=True)
     cron.remove_all(comment=cron_name)
     cron.write()
 
@@ -23,14 +25,17 @@ class CronClient(object):
     Client class to manage BioMAJ cron service, either locally or calling remote service
     '''
 
-    def __init__(self, endpoint=None):
+    def __init__(self, endpoint=None, biomaj_cli='biomaj-cli.py'):
         '''
         Constructor
 
         :param endpoint: Remote address to cron service or proxy. If None, calls methods locally
         :type endpoint: str
+        :param biomaj_cli: Path to biomaj-cli.py if not in PATH
+        :type biomaj_clic: str
         '''
         self.endpoint = endpoint
+        self.biomaj_cli = biomaj_cli
 
     def cron_tasks(self):
         '''
@@ -84,10 +89,10 @@ class CronClient(object):
             if answer['status']:
                 is_ok = True
         else:
+            cron_cmd = self.biomaj_cli + " --update --bank " + banks + " >> /var/log/cron.log 2>&1"
             add_cron_task(cron_time, cron_cmd, cron_name)
             is_ok = True
         return is_ok
-
 
     def cron_task_remove(self, cron_name):
         '''
