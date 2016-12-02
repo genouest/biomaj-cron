@@ -79,8 +79,15 @@ def list_cron():
         return jsonify({'cron': jobs, 'status': False})
     if not user_cron:
         return jsonify({'cron': jobs, 'status': True})
+
+    biomaj_cli = 'biomaj-cli.py'
+    if 'cron' in config and config['cron']['cli']:
+        biomaj_cli = config['cron']['cli']
+
     for job in user_cron:
-        jobs.append(str(user_cron))
+        if job.command.startswith(biomaj_cli):
+            banks = job.command.split('--bank')[1].strip().split(',')
+            jobs.append({'comment': job.comment, 'slices': str(job.slices), 'banks': banks})
     return jsonify({'cron': jobs, 'status': True})
 
 
