@@ -44,11 +44,12 @@ config = {
         'Programming Language :: Python :: 3.4'
     ],
     'install_requires': [
+                        'flask',
                         'gunicorn',
                         'gevent',
                         'python-crontab',
                         'python-consul',
-                        'pymongo'
+                        'pymongo',
                         'PyYAML',
                         'requests',
                         'biomaj-core'
