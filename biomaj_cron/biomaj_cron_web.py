@@ -140,7 +140,7 @@ def add_cron(cron_name):
     if 'user' in param:
         cron_user = param['user']
 
-    r = requests.get(config['web']['endpoint'] + '/api/user/info/user/' + cron_user)
+    r = requests.get(config['web']['local_endpoint'] + '/api/user/info/user/' + cron_user)
     if not r.status_code == 200:
         return jsonify({'msg': 'cron task could not be updated', 'cron': cron_name, 'status': False})
     user_info = r.json()
