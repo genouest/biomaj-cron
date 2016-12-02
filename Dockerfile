@@ -16,7 +16,7 @@ RUN cd biomaj-cli && python3 setup.py install
 RUN touch /var/log/cron.log
 
 COPY docker_start.sh /root/docker_start.sh
-COPY config.yml /etc/biomaj/config.yml
+COPY config-docker.yml /etc/biomaj/config.yml
 ENV BIOMAJ_CONFIG=/etc/biomaj/config.yml
 # Run the command on container startup
 CMD /root/docker_start.sh
