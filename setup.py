@@ -58,7 +58,7 @@ config = {
     'test_suite': 'nose.collector',
     'packages': find_packages(),
     'include_package_data': True,
-    'scripts': [],
+    'scripts': ['bin/biomaj_load_cron.py'],
     'name': 'biomaj_cron'
 }
 

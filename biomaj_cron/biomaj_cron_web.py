@@ -49,18 +49,6 @@ def consul_declare(config):
 consul_declare(config)
 
 
-def load_cron_tasks():
-    logging.info("Load saved cron tasks")
-    cron_jobs = mongo_cron.find({})
-    if not cron_jobs:
-        return
-    for cron_job in cron_jobs:
-        add_cron_task(cron_job['time'], cron_job['cmd'], cron_job['name'])
-
-
-load_cron_tasks()
-
-
 @app.route('/api/cron', methods=['GET'])
 def ping():
     '''
