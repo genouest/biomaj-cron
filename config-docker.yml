@@ -3,7 +3,7 @@ mongo:
     db: 'biomaj_cron'
 
 cron:
-    cli: 'biomaj-cli.py'
+    cli: '/usr/local/bin/biomaj-cli.py'
 
 consul:
     host: 'biomaj-consul'
