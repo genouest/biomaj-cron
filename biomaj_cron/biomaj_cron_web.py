@@ -152,7 +152,8 @@ def add_cron(cron_name):
     biomaj_cli = 'biomaj-cli.py'
     if 'cron' in config and config['cron']['cli']:
         biomaj_cli = config['cron']['cli']
-    cron_cmd = biomaj_cli + " --proxy " + config['web']['local_endpoint'] + " --api-key " + api_key + " --update --bank " + cron_banks + " >> /var/log/cron.log 2>&1"
+    proxy = Utils.get_service_endpoint(config, 'daemon')
+    cron_cmd = biomaj_cli + " --proxy " + proxy + " --api-key " + api_key + " --update --bank " + cron_banks + " >> /var/log/cron.log 2>&1"
     try:
         add_cron_task(cron_time, cron_cmd, cron_newname)
     except Exception as e:

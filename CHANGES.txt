@@ -1,2 +1,9 @@
-3.0.0:
-   Creation
+# Release notes
+
+## 3.0.1
+
+Allow proxy endpoint definition for daemon, else use default web.local_endpoint
+
+## 3.0.0
+
+Creation
