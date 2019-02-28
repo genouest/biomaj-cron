@@ -10,7 +10,6 @@ branches:
   - "/^feature.*$/"
 install:
 - pip install flake8
-- pip install -r requirements.txt
 - pip install coverage
 - pip install python-coveralls
 - python setup.py -q install
