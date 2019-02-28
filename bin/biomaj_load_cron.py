@@ -10,7 +10,7 @@ from biomaj_core.utils import Utils
 
 config_file = 'config.yml'
 if 'BIOMAJ_CONFIG' in os.environ:
-        config_file = os.environ['BIOMAJ_CONFIG']
+    config_file = os.environ['BIOMAJ_CONFIG']
 
 config = None
 

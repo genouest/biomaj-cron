@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-from distutils.command.install import install
+# from distutils.command.install import install
 import os
 
 
@@ -21,8 +21,8 @@ config = {
     'url': 'http://biomaj.genouest.org',
     'download_url': 'http://biomaj.genouest.org',
     'author_email': 'olivier.sallou@irisa.fr',
-    'version': '3.0.1',
-     'classifiers': [
+    'version': '3.0.2',
+    'classifiers': [
         # How mature is this project? Common values are
         #   3 - Alpha
         #   4 - Beta

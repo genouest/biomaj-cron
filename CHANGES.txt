@@ -1,5 +1,9 @@
 # Release notes
 
+## 3.0.2
+
+Add tags for traefik support
+
 ## 3.0.1
 
 Allow proxy endpoint definition for daemon, else use default web.local_endpoint

@@ -1,0 +1,27 @@
+language: python
+sudo: false
+python:
+- '2.7'
+- '3.4'
+- '3.5'
+- '3.6'
+branches:
+  except:
+  - "/^feature.*$/"
+install:
+- pip install flake8
+- pip install -r requirements.txt
+- pip install coverage
+- pip install python-coveralls
+- python setup.py -q install
+script:
+- flake8 --ignore E501,E123,W504 biomaj_cron
+deploy:
+  provider: pypi
+  skip_existing: true
+  user: osallou
+  password:
+    secure: qHHPhOXpqwTzkZnBDgDI2d/PlMHtSOBpR76vUVDrDRugMvewJ99hqMt2V6Te5o42XsCTtt0L5NgRDb55W5c3rNKyvIcLBJE+F3zglymC3nm+88KjhU7Hfzp1btW1J2VwODpTCZ76/0q2TwVa4KAJ+b8K04UMO6GhH97+KVQaqbgVjg9sA8cfmWO9KyHmp6f749J8jBW5jAouNC6AnyKTtMzomIc8TEHXNFqIh7YJNsez6UcnyvqWDO+wG0aK/YJnNP9qy8ZW8KlQFcEfGvww3/ihvz0P1EFsvj6LCB/zum2L88sn+9G5xyDqwySlUHxvjY98tCV0a5QA7x4AI+IW6WVqU+tvSGlgSayrA2SPKri8+QfPyxQDhffZsR18tODNzXYX9etUZ0m0xFe1+1JLfTZQ27/qiFKgjvxuoIs0d6uDscN5bkYVKHEhG03ZrF4uE9HxhfAFAquQo1yFB7N3oVFJ3Vl75whD8Q0tz2GtGJsjW23YxWesEz+Q1zabeqj6+cR4WN9h7FKpYVPR6QzM2xpXiOsDiukwWeykGaSTFFxUGmE5SZMQOYjJXdzR1PCncAffXtGtbVIQzx0gkzvy8hg14qXwNXB5xznbc0R3IokgKXzOvs75DY5W5ieYerNK/SHYyF8f+dU5CWaggK1BR5RI/dfu9KuiZMEvduvM2Ak=
+  distributions: sdist bdist_wheel
+  on:
+    tags: true
