@@ -51,7 +51,7 @@ def consul_declare(config):
                 'api',
                 'traefik.backend=biomaj-cron',
                 'traefik.frontend.rule=PathPrefix:/api/cron',
-                'traefik.enable=true'       
+                'traefik.enable=true'
             ]
         )
         check = consul.Check.http(url='http://' + config['web']['hostname'] + ':' + str(config['web']['port']) + '/api/cron', interval=20)
