@@ -1,5 +1,9 @@
 # Release notes
 
+## 3.0.3
+
+Fix traefik prefix
+
 ## 3.0.2
 
 Add tags for traefik support
