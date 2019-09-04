@@ -1,0 +1,10 @@
+flask
+gunicorn
+gevent==1.4.0
+python-crontab
+python-consul
+pymongo
+PyYAML
+requests
+biomaj-core
+
