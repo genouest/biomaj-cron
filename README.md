@@ -4,6 +4,8 @@ biomaj-cron manages the cron task to update BioMAJ banks.
 
 It can be used as a library or as a micro-service.
 
+[![PyPI version](https://badge.fury.io/py/biomaj-cron.svg)](https://badge.fury.io/py/biomaj-cron)
+
 # Install
 
     pip install biomaj-cron
