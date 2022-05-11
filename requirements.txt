@@ -1,9 +1,9 @@
 flask
 gunicorn
-gevent==1.4.0
+gevent
 python-crontab
 python-consul
-pymongo
+pymongo>=3.12.3,<4
 PyYAML
 requests
 biomaj-core

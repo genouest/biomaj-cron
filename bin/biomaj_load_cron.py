@@ -1,6 +1,10 @@
 import os
-import yaml
 import logging
+import yaml
+try:
+    from yaml import CLoader as Loader
+except ImportError:
+    from yaml import Loader
 
 from pymongo import MongoClient
 
@@ -15,7 +19,7 @@ if 'BIOMAJ_CONFIG' in os.environ:
 config = None
 
 with open(config_file, 'r') as ymlfile:
-    config = yaml.load(ymlfile)
+    config = yaml.load(ymlfile, Loader=Loader)
     Utils.service_config_override(config)
 
 
